@@ -3,43 +3,43 @@
 let buttons = document.getElementsByClassName('btn'),
     output = document.getElementById('steps'),
     strForOutput = "",
-    factorialFlag = 0,
-    f=[];
+    factorialFlag = 0;
 
 
-function factorial (n)
-{
-    if (n === 0 || n === 1) return 1;
-    if (f[n] > 0) return f[n];
-    return f[n] = factorial(n - 1) * n;
+function factorial(n) {
+    return n ? n * factorial(n - 1) : 1;
 }
 
-function searchFactorial()
-{
-    for (var element in  output.innerHTML )
+function searchFactorial(str) {
+    for (let i = 0; i < factorialFlag; i++)
     {
-        let strNumber = "",
-            number = 0,
-            exMark = output.innerHTML().indexOf("!");
-        if (parseInt(element))(strNumber += element);
-        else if (isNaN(element) && element !== "!" )( strNumber ="");
-        else if (element === "!")
-        {
-            /*
-            number = Number.parseInt(strNumber);
-            number = factorial(Number.parseInt(number));
-            let strForChange = output.innerHTML.slice( exMark - number.length, exMark);
-            output.innerHTML.replace(strForChange, number);*/
+        let result = 0,
+            number = "",
+            arrayStr = [],
+            indexFact = str.indexOf("!");
 
-            number = Number.parseInt(strNumber);
-            alert(number);
+        arrayStr = str.split("");
+        for (let i = 0; i < arrayStr.length; i++)
+        {
+            if (!isNaN(arrayStr[i])) {
+                number += arrayStr[i];
+            } else if (arrayStr[i] === "!")
+            {
+                result = factorial(parseInt(number));
+                arrayStr.splice( indexFact  - number.length , indexFact+1, result);
+                str = arrayStr.join("");
+            } else if (isNaN(arrayStr[i]))
+            {
+                number = "";
+            }
         }
+        alert(str);
     }
 }
 
 function total()
 {
-    if (factorialFlag) searchFactorial();
+    if (factorialFlag) searchFactorial(output.innerHTML);
     output.innerHTML = eval(strForOutput);
 
 }
@@ -87,7 +87,7 @@ for (let i = 0; i < buttons.length; i++)
                 strForOutput += "Math.cos";
                 break;
 
-            case "cos":
+            case "sin":
                 output.innerHTML += "sin";
                 strForOutput += "Math.sin";
                 break;
