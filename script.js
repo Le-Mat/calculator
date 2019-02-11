@@ -10,15 +10,15 @@ function factorial(n) {
     return n ? n * factorial(n - 1) : 1;
 }
 
-function searchFactorial(str) {
+function searchFactorial() {
     for (let i = 0; i < factorialFlag; i++)
     {
         let result = 0,
             number = "",
             arrayStr = [],
-            indexFact = str.indexOf("!");
+            indexFact = strForOutput.indexOf("!");
 
-        arrayStr = str.split("");
+        arrayStr = strForOutput.split("");
         for (let i = 0; i < arrayStr.length; i++)
         {
             if (!isNaN(arrayStr[i])) {
@@ -27,19 +27,22 @@ function searchFactorial(str) {
             {
                 result = factorial(parseInt(number));
                 arrayStr.splice( indexFact  - number.length , indexFact+1, result);
-                str = arrayStr.join("");
+                strForOutput = arrayStr.join("");
+                strForOutput.replace(number+'!', result);
+                output.innerHTML = strForOutput;
+
             } else if (isNaN(arrayStr[i]))
             {
                 number = "";
             }
         }
-        alert(str);
+
     }
 }
 
 function total()
 {
-    if (factorialFlag) searchFactorial(output.innerHTML);
+    if (factorialFlag) searchFactorial();
     output.innerHTML = eval(strForOutput);
 
 }
